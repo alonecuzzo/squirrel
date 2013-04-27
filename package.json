@@ -1,0 +1,17 @@
+{
+  "name": "squirrel",
+  "version": "0.5.0",
+  "private": true,
+  "engines": {
+    "node": "0.10.15",
+    "npm":  "1.2.18"
+  },
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "grunt": "0.3.17",
+    "express": "3.1.0",
+    "oauth": "latest"
+  } 
+}
