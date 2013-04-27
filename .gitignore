@@ -1,0 +1,10 @@
+.DS_Store
+*.swp
+*.swo
+.sass-cache/
+*.sublime-project
+*.sublime-workspace
+node_modules/
+tmp/
+config.rb
+scss/style.css
