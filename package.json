@@ -13,6 +13,6 @@
     "oauth": "*",
     "evernote": "*",
     "mongodb": "*",
-    "dynectmail":"*"
+    "dynectemail":"*"
   }
 }
