@@ -1,6 +1,9 @@
 var OAuth = require('oauth').OAuth,
     Evernote = require('evernote').Evernote,
-    DynectEmailNode = require('dynectemail/lib/dynectemail/index').DynectEmailNode;
+    DynectEmailNode = require('dynectemail/lib/dynectemail/index').DynectEmailNode,
+    Jade = require('jade'),
+    FS = require('fs');
+
 
 var config = require('../config.json');
 var base_url = config.SANDBOX ? 'https://sandbox.evernote.com' : 'https://www.evernote.com';
@@ -86,6 +89,17 @@ exports.oauth_callback = function(req, res) {
       });
 };
 
+var path = "views/newsletter.jade",
+    template = FS.readFileSync(path, "utf8"),
+    options = { filename: path },
+    fn = Jade.compile(template, options),
+    html = fn();
+    console.log(html);
+
+
+// var newsletter = new Buffer(html,'base64');
+// console.log(newsletter);
+
 //Dynectemail
 var dynectemail = new DynectEmailNode({
   apikey: 'ea15eb4fabb44718983b7f5c04c93f6b',
@@ -98,7 +112,7 @@ var send = dynectemail.request("send", {
     from:'"Squirrel" <zainabebrahimi@gmail.com>',
     to:'"User"<khobra.z@gmail.com>',
     subject:"Newsletter",
-    bodytext:"SENDING MESSAGE",
+    bodyhtml:html,
     handlers: {
         success: function(data) {
       if(data.response.status != '200') {

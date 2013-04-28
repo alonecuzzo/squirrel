@@ -21,7 +21,6 @@ app.configure(function(){
     res.locals.session = req.session;
     next();
   });
-
   app.use(app.router);
   app.use(require('less-middleware')({src: __dirname + '/public'}));
   app.use(express.static(path.join(__dirname, 'public')));
