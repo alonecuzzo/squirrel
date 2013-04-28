@@ -51,8 +51,6 @@
   }
 
   exports.populateNotebooks = function(uid, notebooks) {
-    // var BSON = require('mongodb').BSONPure;
-    console.log('uid: ' + uid);
     var o_id = new require('mongodb').ObjectID(uid.toString());
     MongoClient.connect(dbURL, function(err, db) {
       var usersCollection = db.collection('users');

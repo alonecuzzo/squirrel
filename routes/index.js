@@ -51,7 +51,6 @@ exports.index = function(req, res) {
         // });
     note_store.listNotebooks(token, function(notebooks){
       req.session.notebooks = notebooks;
-      console.log('notebooks: ' + JSON.stringify(notebooks));
       res.render('index');
     });
     
