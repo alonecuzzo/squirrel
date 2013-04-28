@@ -38,8 +38,9 @@ app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);
 app.get('/users', user.list);
 app.get('/thanks', routes.renderThanksPage);
-app.get('/newsletter',routes.sendNewsletter);
+app.get('/newsletter', routes.sendNewsletter);
 app.post('/populateRegistration', function (req, res){
+  console.log('in?');
    routes.populateNotebooks(req.body.selectedNotebooks, req, res);
 });
 

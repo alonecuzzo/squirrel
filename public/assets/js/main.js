@@ -12,11 +12,12 @@ $(function() {
             url: '/populateRegistration',						
             success: function(data) {
                 console.log('success');
-                // console.log(JSON.stringify(data));
-                window.location = '/thanks'
+                console.log(JSON.stringify(data));
+                window.location = '/thanks';
             }, 
             error: function(jqXHR, textStatus, err){
                console.log('text status '+textStatus+', err '+err)
+               window.location = '/thanks';
            }
         });
 	});
