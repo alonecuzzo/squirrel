@@ -2,6 +2,12 @@ doctype 5
 html
   head
     title SQUIRREL
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(charset="utf-8")
+    include ../public/assets/css/squirrel.css
+    include ../public/assets/vendor/bootstrap/css/bootstrap.css
+    //- include ../public/assets/vendor/bootstrap/css/bootstrap-responsive.css
+    //- link(rel='stylesheet', href='public/assets/vendor/bootstrap/css/bootstrap.css')
+    //- link(rel="stylesheet", href='public/assets/css/squirrel.css' )
   body
     block content
