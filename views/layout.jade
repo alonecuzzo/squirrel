@@ -6,8 +6,9 @@ html
     meta(charset="utf-8")
     include ../public/assets/css/squirrel.css
     include ../public/assets/vendor/bootstrap/css/bootstrap.css
-    //- include ../public/assets/vendor/bootstrap/css/bootstrap-responsive.css
-    //- link(rel='stylesheet', href='public/assets/vendor/bootstrap/css/bootstrap.css')
-    //- link(rel="stylesheet", href='public/assets/css/squirrel.css' )
   body
-    block content
+    .main
+        #wrap
+          .navbar-static-top.topbar
+            h3 squirrel
+        block content

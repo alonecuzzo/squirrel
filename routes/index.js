@@ -15,10 +15,10 @@ exports.index = function(req, res) {
     var transport = new Evernote.Thrift.NodeBinaryHttpTransport(req.session.edam_noteStoreUrl);
     var protocol = new Evernote.Thrift.BinaryProtocol(transport);
     var note_store = new Evernote.NoteStoreClient(protocol);
-    var user_store = new Evernote.UserStoreClient(protocol);
-    user_store.getUser(token, function(user){
-      console.log('user: ' + JSON.stringify(user));
-    });
+    // var user_store = new Evernote.UserStoreClient(protocol);
+    // user_store.getUser(token, function(user){
+    //   console.log('user: ' + JSON.stringify(user));
+    // });
     user.createUserAfterLogin({
       'username' : 'a user',
       'email' : 'an@email.com'

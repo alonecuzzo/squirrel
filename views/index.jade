@@ -1,37 +1,38 @@
 extends layout
 
 block content
-  .main
-    #wrap
-      .navbar-static-top.topbar
-        h3 squirrel
-      .container.content
-        .textsection
-          h3 Read more later. Get newsletter.
-          p 
-            |Lorem ipsum dolor sit amet, 
-            |consectetur adipiscing elit. 
-            |Mauris sed sapien non tellus 
-            |rhoncus bibendum molestie quis sem. 
-            |Praesent velit tortor, vehicula a 
-            |imperdiet eget, sagittis quis eros.
-        form.form-signin
-          h2.form-signin-heading
-            img(src="assets/img/evernote_logo.png")
-            p Sign In
-          input.input-block-level(type="text", placeholder="Email address")
-          input.input-block-level(type="password",placeholder="Password")
-          label.checkbox
-            input(type="checkbox",value="remember-me")
-            p Remember me
-          button.btn.btn-large.btn-success(type="submit")
-            p Sign In
-      #push
-      #footer
-        .container
-          p.muted.credit 
-            |Developed by 
-            a(href="http://") Jabari Bell
-            |and 
-            a(href="http://") Zainab Ebrahimi
+  - if(session.oauth_access_token)
+    h3 Link your notebooks
+    - if(session.notebooks)
+    ul
+      - for (var i = 0; i < session.notebooks.length; ++i)
+        //- li= session.notebooks[i].name
+        label.checkbox
+            input(type="checkbox",value= session.notebooks[i].name)
+            p= session.notebooks[i].name
+  - else
+    .container.content#main-box
+      .textsection
+        h3 Read more later. Get newsletter.
+        p 
+          |Lorem ipsum dolor sit amet, 
+          |consectetur adipiscing elit. 
+          |Mauris sed sapien non tellus 
+          |rhoncus bibendum molestie quis sem. 
+          |Praesent velit tortor, vehicula a 
+          |imperdiet eget, sagittis quis eros.
+      h2.form-signin-heading
+        img(src="assets/img/evernote_logo.png")
+        p Sign In
+      a(href='/oauth')
+        button.btn.btn-large.btn-success
+          p Sign In
+    #push
+    #footer
+      .container
+        p.muted.credit 
+          |Developed by 
+          a(href="http://") Jabari Bell
+          |and 
+          a(href="http://") Zainab Ebrahimi
 
