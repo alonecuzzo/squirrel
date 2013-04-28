@@ -1,49 +1,37 @@
 extends layout
 
 block content
-  h1 Evernote Node.js Express Demo
-  p
-    | This application uses the 
-    a(href='http://expressjs.com/') Express
-    |  framework to demonstrate the use of OAuth to authenticate to the Evernote web service.
-  hr
-  h2 Authentication
-  - if(session.oauth_access_token)
-    a(href='/clear') Click here
-    |  to 
-    | start over
-  - else
-    a(href='/oauth') Click here
-    |  to 
-    | connect Evernote
+  .main
+    #wrap
+      .navbar-static-top.topbar
+        h3 squirrel
+      .container.content
+        .textsection
+          h3 Read more later. Get newsletter.
+          p 
+            |Lorem ipsum dolor sit amet, 
+            |consectetur adipiscing elit. 
+            |Mauris sed sapien non tellus 
+            |rhoncus bibendum molestie quis sem. 
+            |Praesent velit tortor, vehicula a 
+            |imperdiet eget, sagittis quis eros.
+        form.form-signin
+          h2.form-signin-heading
+            img(src="assets/img/evernote_logo.png")
+            p Sign In
+          input.input-block-level(type="text", placeholder="Email address")
+          input.input-block-level(type="password",placeholder="Password")
+          label.checkbox
+            input(type="checkbox",value="remember-me")
+            p Remember me
+          button.btn.btn-large.btn-success(type="submit")
+            p Sign In
+      #push
+      #footer
+        .container
+          p.muted.credit 
+            |Developed by 
+            a(href="http://") Jabari Bell
+            |and 
+            a(href="http://") Zainab Ebrahimi
 
-  hr
-  - if(session.notebooks)
-    h2 Notebooks
-    ul
-      - for (var i = 0; i < session.notebooks.length; ++i)
-        li= session.notebooks[i].name
-    hr
-  h2 Current status
-  ul
-    li
-      b NoteStore URL:  
-      = session.edam_noteStoreUrl
-    li
-      b Web API URL prefix: 
-      = session.edam_noteStoreUrl
-  h3 Token Credentials:
-  ul
-    li
-      b token:  
-      = session.oauth_access_token
-    li
-      b secret:  
-      = session.oauth_access_token_secret
-    li
-      b User ID:  
-      = session.edam_userId
-    li
-      b Expires:  
-      = session.edam_expires
-    
