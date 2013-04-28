@@ -1,41 +1,43 @@
 extends layout
 
 block content
+
   - if(session.oauth_access_token)
-      h3 Link your notebooks
-    - if(session.notebooks)
-    ul
-      label.checkbox
-        input(type="checkbox", value="squirrel links", checked=true, class="book-checkbox")
-        p Squirrel Links
-      - for (var i = 0; i < session.notebooks.length; ++i)
-        //- li= session.notebooks[i].name
+    .settings
+      h3 notebooks
+      - if(session.notebooks)
+      ul
         label.checkbox
-            input(type="checkbox",value= session.notebooks[i].guid, class="book-checkbox")
-            p= session.notebooks[i].guid
-            p= session.notebooks[i].name
-    h3 How often do you want our spamz!?
-      label.checkbox
-        input(type="checkbox", value="once a week")
-        p once a week
-      label.checkbox
-        input(type="checkbox", value="once a month")
-        p once a month
-      label.checkbox
-        input(type="checkbox", value="once a decade")
-        p once a decade
-      button.btn.btn-large.btn-success#save-profile
-        p Save
+          input(type="checkbox", value="squirrel links", checked=true, class="book-checkbox")
+          p Squirrel Links
+        - for (var i = 0; i < session.notebooks.length; ++i)
+          //- li= session.notebooks[i].name
+          label.checkbox
+              input(type="checkbox",value= session.notebooks[i].guid, class="book-checkbox")
+              //- p= session.notebooks[i].guid
+              p= session.notebooks[i].name
+      #push
+      h3 newsletter frequency
+      ul  
+        label.checkbox
+          input(type="checkbox", value="once a week")
+          p once a week
+        label.checkbox
+          input(type="checkbox", value="once a month")
+          p once a month
+        label.checkbox
+          input(type="checkbox", value="once a decade")
+          p once a decade
+        button.btn.btn-large.btn-success.save
+          p Save Profile
   - else
       .textsection
         img(src="assets/img/logo.png")
       .form-signin
         h2.form-signin-heading
          p 
-          |Crawls through the notes in 
-          |a specified evernote notebook 
-          |and delivers a personalized newsletter.
-          |consectetur adipiscing elit. 
+          |Crawls through your evernote notes in
+          |and delivers a personalized newsletter. 
         a(href='/oauth')
           button.btn.btn-large.btn-success.main
             p Sign In with Evernote

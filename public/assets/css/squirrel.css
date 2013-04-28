@@ -48,6 +48,7 @@ body {
 .form-signin p{
   /*font-size: 14px;*/
   font-weight: lighter;
+  text-align: center; 
 
 }
 #wrap {
@@ -113,11 +114,18 @@ code {
 .content{
   background-color: #72451d;
   color:#ddaa7e;
-  border: 1px solid #2b1d0e;
+  /*#2b1d0e
+  #5e3918*/
+  border: 20px solid #492c13 ;
   -webkit-box-shadow: 0 8px 6px -6px #2b1d0e;
      -moz-box-shadow: 0 8px 6px -6px #2b1d0e;
           box-shadow: 0 8px 6px -6px #2b1d0e;
   margin-top: 50px;
+}
+.content h3{
+  font-weight: lighter;
+  color:#fff;
+  font-size: 40px;
 }
 
 .some{
@@ -127,7 +135,8 @@ code {
  .textsection{
   margin: 60px 0px 10px 150px;
   width: 600px;
-  float:left;  
+  float:left;
+
 
  }
  .textsection h3{
@@ -139,3 +148,12 @@ button.main{
   margin:40px auto 20px 150px;
 }
 
+button.save{
+  margin:40px auto 20px 20px;
+}
+.settings{
+  padding-left: 300px;
+}
+h3.notebook{
+  margin-left:50px;
+}
