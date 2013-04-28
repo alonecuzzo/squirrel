@@ -10,6 +10,19 @@ block content
         label.checkbox
             input(type="checkbox",value= session.notebooks[i].name)
             p= session.notebooks[i].name
+    h3 How often do you want our spamz!?
+      label.checkbox
+        input(type="checkbox", value="once a week")
+        p once a week
+      label.checkbox
+        input(type="checkbox", value="once a month")
+        p once a month
+      label.checkbox
+        input(type="checkbox", value="once a decade")
+        p once a decade
+      a(href='/thanks')
+        button.btn.btn-large.btn-success
+          p Save
   - else
     .container.content#main-box
       .textsection

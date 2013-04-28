@@ -32,6 +32,10 @@ exports.index = function(req, res) {
   }
 };
 
+exports.renderThanksPage = function(req, res) {
+  res.render('thanks');
+}
+
 // OAuth
 exports.oauth = function(req, res) {
 
