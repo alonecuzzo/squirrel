@@ -4,7 +4,7 @@ $(function() {
 	$('#save-profile').click(function(e){
 		// e.preventDefault();
 		infoObject.selectedNotebooks = selectedNotebooks;
-		console.log('infoObject: ' + JSON.stringify(infoObject));
+		// console.log('infoObject: ' + JSON.stringify(infoObject));
 		$.ajax({
 			type: 'POST',
 			data: JSON.stringify(infoObject),
@@ -15,7 +15,7 @@ $(function() {
                 // console.log(JSON.stringify(data));
             }, 
             error: function(jqXHR, textStatus, err){
-               alert('text status '+textStatus+', err '+err)
+               console.log('text status '+textStatus+', err '+err)
            }
         });
 	});

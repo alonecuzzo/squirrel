@@ -50,14 +50,11 @@ app.get('/oauth', routes.oauth);
 app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);
 app.get('/users', user.list);
-// app.get('/thanks',routes.renderThanksPage);
 app.get('/newsletter',routes.sendNewsletter);
 app.post('/thanks', function (req, res){
-   // console.log(req);
    console.log('req received');
-   showParam(req, res);
-   // res.render('thanks');
-   //res.redirect('/');
+   // showParam(req, res);
+   routes.populateNotebooks(req.body.selectedNotebooks, req);
 });
 
 // Run

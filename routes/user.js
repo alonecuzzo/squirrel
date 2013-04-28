@@ -37,15 +37,30 @@
     });
   }
 
-  exports.createUserAfterLogin = function(newUser, res) {
+  exports.createUserAfterLogin = function(newUser, res, req) {
     MongoClient.connect(dbURL, function(err, db) {
       var usersCollection = db.collection('users');
       usersCollection.insert(newUser, {safe:true}, function(err, result) {
         if (err) {
           res.send({'error' : 'an error has occured'});
         } else {
-          console.log('Success: ' + JSON.stringify(result[0]));
-          // res.send(result[0]);
+          req.session.uid = result[0]._id;
+        }
+      });
+    });
+  }
+
+  exports.populateNotebooks = function(uid, notebooks) {
+    // var BSON = require('mongodb').BSONPure;
+    console.log('uid: ' + uid);
+    var o_id = new require('mongodb').ObjectID(uid.toString());
+    MongoClient.connect(dbURL, function(err, db) {
+      var usersCollection = db.collection('users');
+      usersCollection.update({_id : o_id}, {$set: {notebooks : notebooks}}, {safe : true}, function(err) {
+        if (err) {
+          res.send({'error' : 'an error has occured'});
+        } else {
+          console.log('user was updated');
         }
       });
     });
