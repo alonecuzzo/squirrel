@@ -10,6 +10,7 @@ var base_url = config.SANDBOX ? 'https://sandbox.evernote.com' : 'https://www.ev
 var request_token_path = "/oauth";
 var access_token_path = "/oauth";
 var authorize_path = "/OAuth.action";
+var user = require('./user');
 
 // home page
 exports.index = function(req, res) {
@@ -18,14 +19,62 @@ exports.index = function(req, res) {
     var transport = new Evernote.Thrift.NodeBinaryHttpTransport(req.session.edam_noteStoreUrl);
     var protocol = new Evernote.Thrift.BinaryProtocol(transport);
     var note_store = new Evernote.NoteStoreClient(protocol);
+    var userStoreURL = 'https://sandbox.evernote.com/edam/user';              
+    var userStoreTransport = new Evernote.Thrift.NodeBinaryHttpTransport(userStoreURL);
+    var userStoreProtocol = new Evernote.Thrift.BinaryProtocol(userStoreTransport);
+    var userStore = new Evernote.UserStoreClient(userStoreProtocol);
+    userStore.getUser(token, function(user){
+      // console.log('user: ' + JSON.stringify(user));
+      
+    });
+    user.createUserAfterLogin({
+        'username' : user.username,
+        'email' : 'an@email.com',
+        'frequency' : 604800000, //milliseconds in a week
+        'last_sent' : new Date().getTime() / 1000,
+        'notebooks' : [] 
+      }, res);
+    var myFilter = new Evernote.NoteFilter({
+      notebookGuid : '4f4e5244-f876-43d9-9598-3fb3c77f031d',
+      ascending : false
+    });
+    var resultSpec = new Evernote.NotesMetadataResultSpec({
+      includeTitle : true
+    });
+    // note_store.findNotesMetadata(token, myFilter, 0, 100, resultSpec, function(notes){
+    //   console.log('notes: ' + JSON.stringify(notes));
+    // });
+
+    // for(var i = 0; i < notes.notes.length; i++) {
+        // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
+        //   console.log('note: ' + JSON.stringify(note));
+        // });
     note_store.listNotebooks(token, function(notebooks){
       req.session.notebooks = notebooks;
+      console.log('notebooks: ' + JSON.stringify(notebooks));
       res.render('index');
     });
+    
+        // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
+        //   // console.log('note: ' + JSON.stringify(note));
+        // });
   } else {
     res.render('index');
   }
 };
+
+exports.preferencesSaved = function(req, res) {
+
+}
+
+exports.renderThanksPage = function(req, res) {
+  console.log(JSON.stringify(req.body));
+  res.render('thanks');
+}
+
+exports.sendNewsletter = function(req, res) {
+  user.sendNewsletter();
+}
 
 // OAuth
 exports.oauth = function(req, res) {
@@ -83,6 +132,7 @@ exports.oauth_callback = function(req, res) {
           req.session.edam_userId = results.edam_userId;
           req.session.edam_expires = results.edam_expires;
           req.session.edam_noteStoreUrl = results.edam_noteStoreUrl;
+          req.session.edam_userStoreUrl = results.edam_userStoreUrl;
           req.session.edam_webApiUrlPrefix = results.edam_webApiUrlPrefix;
           res.redirect('/');
         }
