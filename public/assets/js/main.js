@@ -9,10 +9,11 @@ $(function() {
 			type: 'POST',
 			data: JSON.stringify(infoObject),
 	        contentType: 'application/json',
-            url: '/thanks',						
+            url: '/populateRegistration',						
             success: function(data) {
                 console.log('success');
                 // console.log(JSON.stringify(data));
+                window.location = '/thanks'
             }, 
             error: function(jqXHR, textStatus, err){
                console.log('text status '+textStatus+', err '+err)

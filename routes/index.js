@@ -66,21 +66,12 @@ exports.preferencesSaved = function(req, res) {
 
 }
 
-exports.populateNotebooks = function(notebooks, req) {
-  user.populateNotebooks(req.session.uid, notebooks);
+exports.populateNotebooks = function(notebooks, req, res) {
+  user.populateNotebooks(req.session.uid, notebooks, res);
 }
 
 exports.renderThanksPage = function(req, res) {
-   if (req.body) {
-        // for (var key in req.body) {
-        //     console.log(key + ": " + req.body[key]);
-        // }       
-        console.log(req.body.selectedNotebooks); 
-        res.send({status:'ok',message:'data received'});
-    } else {
-        console.log("nothing received");
-        res.send({status:'nok',message:'no Tweet received'});
-    }   
+   res.render('thanks');
 }
 
 exports.sendNewsletter = function(req, res) {

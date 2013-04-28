@@ -31,30 +31,16 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-var showParam = function (req, res) {
-    if (req.body) {
-        // for (var key in req.body) {
-        //     console.log(key + ": " + req.body[key]);
-        // }       
-        console.log(req.body.selectedNotebooks); 
-        res.send({status:'ok',message:'data received'});
-    } else {
-        console.log("nothing received");
-        res.send({status:'nok',message:'no Tweet received'});
-    }   
-}
-
 // Routes
 app.get('/', routes.index);
 app.get('/oauth', routes.oauth);
 app.get('/oauth_callback', routes.oauth_callback);
 app.get('/clear', routes.clear);
 app.get('/users', user.list);
+app.get('/thanks', routes.renderThanksPage);
 app.get('/newsletter',routes.sendNewsletter);
-app.post('/thanks', function (req, res){
-   console.log('req received');
-   // showParam(req, res);
-   routes.populateNotebooks(req.body.selectedNotebooks, req);
+app.post('/populateRegistration', function (req, res){
+   routes.populateNotebooks(req.body.selectedNotebooks, req, res);
 });
 
 // Run

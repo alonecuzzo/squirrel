@@ -50,7 +50,7 @@
     });
   }
 
-  exports.populateNotebooks = function(uid, notebooks) {
+  exports.populateNotebooks = function(uid, notebooks, res) {
     var o_id = new require('mongodb').ObjectID(uid.toString());
     MongoClient.connect(dbURL, function(err, db) {
       var usersCollection = db.collection('users');
@@ -58,7 +58,7 @@
         if (err) {
           res.send({'error' : 'an error has occured'});
         } else {
-          console.log('user was updated');
+          console.log('user books were updated');
         }
       });
     });
