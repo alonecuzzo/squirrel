@@ -1,30 +1,47 @@
-html
-  head
-    include ../public/assets/css/squirrel.css
-    include ../public/assets/vendor/bootstrap/css/bootstrap.css
-    //- include ../public/assets/vendor/bootstrap/css/bootstrap-responsive.css
-    //- link(rel='stylesheet', href='public/assets/vendor/bootstrap/css/bootstrap.css')
-    //- link(rel="stylesheet", href='public/assets/css/squirrel.css' )
-  body
-    .main
-    #wrap
-      .navbar-static-top.topbar
-        h3 squirrel
-      .container.content
-        .textsection
-          h3 Read more later. Get newsletter.
-          p 
-            |Lorem ipsum dolor sit amet, 
-            |consectetur adipiscing elit. 
-            |Mauris sed sapien non tellus 
-            |rhoncus bibendum molestie quis sem. 
-            |Praesent velit tortor, vehicula a 
-            |imperdiet eget, sagittis quis eros.
-      #push
-      #footer
-        .container
-          p.muted.credit 
-            |Developed by 
-            a(href="http://") Jabari Bell
-            | and 
-            a(href="http://") Zainab Ebrahimi
+head
+  meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  title Newsletter
+  //- include example-styles
+body
+  //- Wrapper/Container Table: Use a wrapper table to control the width and the background color consistently of your email.
+  //- Use this approach instead of setting attributes on the body tag.
+  table(cellpadding="0", cellspacing="0", border="0", id="backgroundTable")
+    tr
+      td
+        //- Tables are the most common way to format your email consistently. 
+        //- Set your table widths inside cells and in most cases reset cellpadding, cellspacing, and border to zero. 
+        //- Use nested tables as a way to space effectively in your message.
+        table.innerTable(cellpadding="0", cellspacing="0", border="0", align="center")
+          tr
+            td.sideMargin(width="10")
+            td.headingBox(width="660", colspan="3", valign="top", text-align="center")
+              h3 --this week on--
+              h2.heading Squirrel
+              p.paragraph text text text
+            td.sideMargin(width="10")   
+          tr
+            td.sideMargin(width="10")
+            td.headingBox(width="660", colspan="3", valign="top", text-align="center")
+              a(href="http://arxiv.org/abs/1304.5257?utm_source=statuscode&utm_medium=email")
+                h2.heading What Makes Code Hard to Understand?
+              p.paragraph 
+              |What factors impact the comprehensibility of code? 
+              |This scientific paper presents an experiment in which 
+              |programmers predicted the exact output of ten small 
+              |programs and uses subtle differences in the programs 
+              |to work out which changes have the biggest effects on 
+              |correctness and response times.
+            td.sideMargin(width="10")   
+          tr
+            td.hr(width="680", colspan="5")
+              hr
+          tr
+            td.sideMargin(width="10")
+            td.headingBox(width="660", colspan="3", valign="top")
+              h2.heading Bottom heading
+              p.paragraph Some text paragraph
+            td.sideMargin(width="10")
+          tr
+            td.hr(width="680", colspan="5")
+              hr

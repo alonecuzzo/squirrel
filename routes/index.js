@@ -89,6 +89,9 @@ exports.oauth_callback = function(req, res) {
       });
 };
 
+
+
+//Compiling jade template
 var path = "views/newsletter.jade",
     template = FS.readFileSync(path, "utf8"),
     options = { filename: path },
@@ -107,6 +110,7 @@ var dynectemail = new DynectEmailNode({
   //secure: true,       // True will use port 443 instead of 80
   //format: 'json',      // Possible formats: 'json', 'xml', 'html'. Default is json               
 });
+
 
 var send = dynectemail.request("send", {
     from:'"Squirrel" <zainabebrahimi@gmail.com>',
