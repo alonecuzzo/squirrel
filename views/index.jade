@@ -5,10 +5,13 @@ block content
     h3 Link your notebooks
     - if(session.notebooks)
     ul
+      label.checkbox
+        input(type="checkbox", value="squirrel links", checked=true, class="book-checkbox")
+        p Squirrel Links
       - for (var i = 0; i < session.notebooks.length; ++i)
         //- li= session.notebooks[i].name
         label.checkbox
-            input(type="checkbox",value= session.notebooks[i].name)
+            input(type="checkbox",value= session.notebooks[i].guid, class="book-checkbox")
             p= session.notebooks[i].guid
             p= session.notebooks[i].name
     h3 How often do you want our spamz!?
@@ -21,9 +24,8 @@ block content
       label.checkbox
         input(type="checkbox", value="once a decade")
         p once a decade
-      a(href='/thanks')
-        button.btn.btn-large.btn-success
-          p Save
+      button.btn.btn-large.btn-success#save-profile
+        p Save
   - else
     .container.content#main-box
       .textsection
@@ -49,4 +51,6 @@ block content
           a(href="http://") Jabari Bell
           |and 
           a(href="http://") Zainab Ebrahimi
+        
+
 

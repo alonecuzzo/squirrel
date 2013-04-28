@@ -37,20 +37,34 @@ exports.index = function(req, res) {
     var resultSpec = new Evernote.NotesMetadataResultSpec({
       includeTitle : true
     });
-    note_store.findNotesMetadata(token, myFilter, 0, 100, resultSpec, function(notes){
-      console.log('notes: ' + JSON.stringify(notes));
-    });
-    // note_store.listNotebooks(token, function(notebooks){
-    //   req.session.notebooks = notebooks;
-    //   res.render('index');
+    // note_store.findNotesMetadata(token, myFilter, 0, 100, resultSpec, function(notes){
+    //   console.log('notes: ' + JSON.stringify(notes));
     // });
+
+    // for(var i = 0; i < notes.notes.length; i++) {
+        // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
+        //   console.log('note: ' + JSON.stringify(note));
+        // });
+    note_store.listNotebooks(token, function(notebooks){
+      req.session.notebooks = notebooks;
+      console.log('notebooks: ' + JSON.stringify(notebooks));
+      res.render('index');
+    });
     
+        // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
+        //   // console.log('note: ' + JSON.stringify(note));
+        // });
   } else {
     res.render('index');
   }
 };
 
+exports.preferencesSaved = function(req, res) {
+
+}
+
 exports.renderThanksPage = function(req, res) {
+  console.log(JSON.stringify(req.body));
   res.render('thanks');
 }
 
