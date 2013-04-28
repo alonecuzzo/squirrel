@@ -88,6 +88,41 @@ exports.gotNotebooks = function(notebooks, req) {
       console.log('notes: ' + JSON.stringify(notes));
     });
 
+    //Compiling jade template
+    var path = "views/newsletter.jade",
+        template = FS.readFileSync(path, "utf8"),
+        options = { filename: path },
+        fn = Jade.compile(template, options),
+        html = fn();
+
+        //Dynectemail
+    var dynectemail = new DynectEmailNode({
+      apikey: 'ea15eb4fabb44718983b7f5c04c93f6b',
+      //useragent: 'my-app' // Change the user agent. Default is 'dynectemail-node'
+      //secure: true,       // True will use port 443 instead of 80
+      //format: 'json',      // Possible formats: 'json', 'xml', 'html'. Default is json               
+    });
+
+
+var send = dynectemail.request("send", {
+    from:'"Squirrel" <zainabebrahimi@gmail.com>',
+    to:'"Jabari"<jabari.bell@pxlflu.net>',
+    subject:"Your Articles From Last Week",
+    bodyhtml:html,
+    handlers: {
+        success: function(data) {
+      if(data.response.status != '200') {
+        console.log('Request Failed: ' + data.response.status + ' ' +data.response.message);
+      } else {
+        console.log('Request Success: ' + data.response.status, data.response.data);
+      }
+        },
+        error: function(error) {
+            console.log("Error: " + error.message);
+        }
+    }
+}, 'POST');
+
     // for(var i = 0; i < notes.notes.length; i++) {
         // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
         //   console.log('note: ' + JSON.stringify(note));
@@ -179,45 +214,14 @@ exports.something= function(req, res){
 }
 
 
-//Compiling jade template
-var path = "views/newsletter.jade",
-    template = FS.readFileSync(path, "utf8"),
-    options = { filename: path },
-    fn = Jade.compile(template, options),
-    html = fn();
+
     // console.log(html);
 
 
 // var newsletter = new Buffer(html,'base64');
 // console.log(newsletter);
 
-//Dynectemail
-var dynectemail = new DynectEmailNode({
-  apikey: 'ea15eb4fabb44718983b7f5c04c93f6b',
-  //useragent: 'my-app' // Change the user agent. Default is 'dynectemail-node'
-  //secure: true,       // True will use port 443 instead of 80
-  //format: 'json',      // Possible formats: 'json', 'xml', 'html'. Default is json               
-});
 
-
-var send = dynectemail.request("send", {
-    from:'"Squirrel" <zainabebrahimi@gmail.com>',
-    to:'"User"<khobra.z@gmail.com>',
-    subject:"Newsletter",
-    bodyhtml:html,
-    handlers: {
-        success: function(data) {
-      if(data.response.status != '200') {
-        console.log('Request Failed: ' + data.response.status + ' ' +data.response.message);
-      } else {
-        console.log('Request Success: ' + data.response.status, data.response.data);
-      }
-        },
-        error: function(error) {
-            console.log("Error: " + error.message);
-        }
-    }
-}, 'POST');
 
 
 // Clear session
