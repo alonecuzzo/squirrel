@@ -138,6 +138,11 @@ code {
 
 
  }
+
+label.checkbox{
+  font-size:26px;
+}
+
  .textsection h3{
   font-size:60px;
   color:#fff;
@@ -148,7 +153,7 @@ button.main{
 }
 
 button.save{
-  margin:40px auto 20px :;0px;
+  margin:40px auto 20px 0px;
 }
 .settings{
   padding-left: 300px;
