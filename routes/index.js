@@ -33,7 +33,7 @@ exports.index = function(req, res) {
         'frequency' : 604800000, //milliseconds in a week
         'last_sent' : new Date().getTime() / 1000,
         'notebooks' : [] 
-      }, res);
+      }, res, req);
     var myFilter = new Evernote.NoteFilter({
       notebookGuid : '4f4e5244-f876-43d9-9598-3fb3c77f031d',
       ascending : false
@@ -51,7 +51,6 @@ exports.index = function(req, res) {
         // });
     note_store.listNotebooks(token, function(notebooks){
       req.session.notebooks = notebooks;
-      console.log('notebooks: ' + JSON.stringify(notebooks));
       res.render('index');
     });
     
@@ -67,9 +66,12 @@ exports.preferencesSaved = function(req, res) {
 
 }
 
+exports.populateNotebooks = function(notebooks, req, res) {
+  user.populateNotebooks(req.session.uid, notebooks, res);
+}
+
 exports.renderThanksPage = function(req, res) {
-  console.log(JSON.stringify(req.body));
-  res.render('thanks');
+   res.render('thanks');
 }
 
 exports.sendNewsletter = function(req, res) {
@@ -150,7 +152,7 @@ var path = "views/newsletter.jade",
     options = { filename: path },
     fn = Jade.compile(template, options),
     html = fn();
-    console.log(html);
+    // console.log(html);
 
 
 // var newsletter = new Buffer(html,'base64');

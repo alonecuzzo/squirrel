@@ -4,18 +4,19 @@ $(function() {
 	$('#save-profile').click(function(e){
 		// e.preventDefault();
 		infoObject.selectedNotebooks = selectedNotebooks;
-		console.log('infoObject: ' + JSON.stringify(infoObject));
+		// console.log('infoObject: ' + JSON.stringify(infoObject));
 		$.ajax({
 			type: 'POST',
 			data: JSON.stringify(infoObject),
 	        contentType: 'application/json',
-            url: '/thanks',						
+            url: '/populateRegistration',						
             success: function(data) {
                 console.log('success');
                 // console.log(JSON.stringify(data));
+                window.location = '/thanks'
             }, 
             error: function(jqXHR, textStatus, err){
-               alert('text status '+textStatus+', err '+err)
+               console.log('text status '+textStatus+', err '+err)
            }
         });
 	});
