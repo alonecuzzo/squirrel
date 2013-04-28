@@ -59,6 +59,7 @@
           res.send({'error' : 'an error has occured'});
         } else {
           console.log('user books were updated');
+          res.render('thanks');
         }
       });
     });
@@ -108,21 +109,29 @@
     });
   }
 
-  exports.sendNewsletter = function() {
+  exports.getNotebooks = function(req) {
     MongoClient.connect(dbURL, function(err, db) {
       var usersCollection = db.collection('users');
       var user,
-          nowUnixTime = new Date().getTime / 1000;
+          nowUnixTime = new Date().getTime / 1000,
+          notebooks = [];
       responseJSON = usersCollection.find().toArray(function(err, results) {
         // res.send(JSON.stringify(results));
-        console.log('user: ' + JSON.stringify(results));
-        for(var i = 0; i < results.length; i++) {
-          user = results[i];
-          console.log('last_sent: ' + user.last_sent);
-          if(nowUnixTime - (user.last_sent + user.frequency) > 0) {
-            //then they need their email sent
+        // console.log('user: ' + JSON.stringify(results));
+        // for(var i = 0; i < results.length; i++) {
+        //   user = results[i];
+        //   console.log('last_sent: ' + user.last_sent);
+        //   if(nowUnixTime - (user.last_sent + user.frequency) > 0) {
+        //     //then they need their email sent
+
+        //   }
+          //for now force it- send to everybody
+          user = results[0];
+          console.log('user;; ' + JSON.stringify(user));
+          for(var i = 0; i < results[0].notebooks.length; i++) {
+            notebooks.push(results[0].notebooks[i]);
           }
-        }
+          req.session.gotNotebooks(notebooks, req);
       });
     });
   }

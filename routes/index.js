@@ -62,6 +62,43 @@ exports.index = function(req, res) {
   }
 };
 
+exports.sendNewsletter = function(req, res) {
+  req.session.gotNotebooks = module.exports.gotNotebooks;
+  user.getNotebooks(req);
+}
+
+exports.gotNotebooks = function(notebooks, req) {
+  if(req.session.oauth_access_token) {
+    var token = req.session.oauth_access_token;
+    var transport = new Evernote.Thrift.NodeBinaryHttpTransport(req.session.edam_noteStoreUrl);
+    var protocol = new Evernote.Thrift.BinaryProtocol(transport);
+    var note_store = new Evernote.NoteStoreClient(protocol);
+    var userStoreURL = 'https://sandbox.evernote.com/edam/user';              
+    var userStoreTransport = new Evernote.Thrift.NodeBinaryHttpTransport(userStoreURL);
+    var userStoreProtocol = new Evernote.Thrift.BinaryProtocol(userStoreTransport);
+    var userStore = new Evernote.UserStoreClient(userStoreProtocol);
+    var myFilter = new Evernote.NoteFilter({
+      notebookGuid : '4f4e5244-f876-43d9-9598-3fb3c77f031d',
+      ascending : false
+    });
+    var resultSpec = new Evernote.NotesMetadataResultSpec({
+      includeTitle : true
+    });
+    note_store.findNotesMetadata(token, myFilter, 0, 100, resultSpec, function(notes){
+      console.log('notes: ' + JSON.stringify(notes));
+    });
+
+    // for(var i = 0; i < notes.notes.length; i++) {
+        // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
+        //   console.log('note: ' + JSON.stringify(note));
+        // });
+    
+        // note_store.getNote(token, 'fabd88d8-c6f5-4d9a-817e-048ed443b58f', true, true, true, true, function(note){
+        //   // console.log('note: ' + JSON.stringify(note));
+        // });
+  }
+}
+
 exports.preferencesSaved = function(req, res) {
 
 }
@@ -72,11 +109,7 @@ exports.populateNotebooks = function(notebooks, req, res) {
 
 exports.renderThanksPage = function(req, res) {
    res.render('thanks');
-}
-
-exports.sendNewsletter = function(req, res) {
-  user.sendNewsletter();
-}
+ }
 
 // OAuth
 exports.oauth = function(req, res) {
