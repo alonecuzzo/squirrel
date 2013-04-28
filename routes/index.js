@@ -21,7 +21,10 @@ exports.index = function(req, res) {
     // });
     user.createUserAfterLogin({
       'username' : 'a user',
-      'email' : 'an@email.com'
+      'email' : 'an@email.com',
+      'frequency' : 604800000, //milliseconds in a week
+      'last_sent' : new Date,
+      'notebooks' : [] 
     }, res);
     note_store.listNotebooks(token, function(notebooks){
       req.session.notebooks = notebooks;
