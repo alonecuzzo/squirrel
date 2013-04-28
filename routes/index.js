@@ -6,6 +6,7 @@ var base_url = config.SANDBOX ? 'https://sandbox.evernote.com' : 'https://www.ev
 var request_token_path = "/oauth";
 var access_token_path = "/oauth";
 var authorize_path = "/OAuth.action";
+var user = require('./user');
 
 // home page
 exports.index = function(req, res) {
@@ -14,6 +15,14 @@ exports.index = function(req, res) {
     var transport = new Evernote.Thrift.NodeBinaryHttpTransport(req.session.edam_noteStoreUrl);
     var protocol = new Evernote.Thrift.BinaryProtocol(transport);
     var note_store = new Evernote.NoteStoreClient(protocol);
+    var user_store = new Evernote.UserStoreClient(protocol);
+    user_store.getUser(token, function(user){
+      console.log('user: ' + JSON.stringify(user));
+    });
+    user.createUserAfterLogin({
+      'username' : 'a user',
+      'email' : 'an@email.com'
+    }, res);
     note_store.listNotebooks(token, function(notebooks){
       req.session.notebooks = notebooks;
       res.render('index');
