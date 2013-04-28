@@ -20,19 +20,31 @@ exports.index = function(req, res) {
     var userStoreProtocol = new Evernote.Thrift.BinaryProtocol(userStoreTransport);
     var userStore = new Evernote.UserStoreClient(userStoreProtocol);
     userStore.getUser(token, function(user){
-      console.log('user: ' + JSON.stringify(user));
+      // console.log('user: ' + JSON.stringify(user));
+      
     });
     user.createUserAfterLogin({
-      'username' : 'a user',
-      'email' : 'an@email.com',
-      'frequency' : 604800000, //milliseconds in a week
-      'last_sent' : new Date().getTime() / 1000,
-      'notebooks' : [] 
-    }, res);
-    note_store.listNotebooks(token, function(notebooks){
-      req.session.notebooks = notebooks;
-      res.render('index');
+        'username' : user.username,
+        'email' : 'an@email.com',
+        'frequency' : 604800000, //milliseconds in a week
+        'last_sent' : new Date().getTime() / 1000,
+        'notebooks' : [] 
+      }, res);
+    var myFilter = new Evernote.NoteFilter({
+      notebookGuid : '4f4e5244-f876-43d9-9598-3fb3c77f031d',
+      ascending : false
     });
+    var resultSpec = new Evernote.NotesMetadataResultSpec({
+      includeTitle : true
+    });
+    note_store.findNotesMetadata(token, myFilter, 0, 100, resultSpec, function(notes){
+      console.log('notes: ' + JSON.stringify(notes));
+    });
+    // note_store.listNotebooks(token, function(notebooks){
+    //   req.session.notebooks = notebooks;
+    //   res.render('index');
+    // });
+    
   } else {
     res.render('index');
   }
