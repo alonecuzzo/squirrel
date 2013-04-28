@@ -15,15 +15,18 @@ exports.index = function(req, res) {
     var transport = new Evernote.Thrift.NodeBinaryHttpTransport(req.session.edam_noteStoreUrl);
     var protocol = new Evernote.Thrift.BinaryProtocol(transport);
     var note_store = new Evernote.NoteStoreClient(protocol);
-    // var user_store = new Evernote.UserStoreClient(protocol);
-    // user_store.getUser(token, function(user){
-    //   console.log('user: ' + JSON.stringify(user));
-    // });
+    var userStoreURL = 'https://sandbox.evernote.com/edam/user';              
+    var userStoreTransport = new Evernote.Thrift.NodeBinaryHttpTransport(userStoreURL);
+    var userStoreProtocol = new Evernote.Thrift.BinaryProtocol(userStoreTransport);
+    var userStore = new Evernote.UserStoreClient(userStoreProtocol);
+    userStore.getUser(token, function(user){
+      console.log('user: ' + JSON.stringify(user));
+    });
     user.createUserAfterLogin({
       'username' : 'a user',
       'email' : 'an@email.com',
       'frequency' : 604800000, //milliseconds in a week
-      'last_sent' : new Date,
+      'last_sent' : new Date().getTime() / 1000,
       'notebooks' : [] 
     }, res);
     note_store.listNotebooks(token, function(notebooks){
@@ -37,6 +40,10 @@ exports.index = function(req, res) {
 
 exports.renderThanksPage = function(req, res) {
   res.render('thanks');
+}
+
+exports.sendNewsletter = function(req, res) {
+  user.sendNewsletter();
 }
 
 // OAuth
@@ -95,6 +102,7 @@ exports.oauth_callback = function(req, res) {
           req.session.edam_userId = results.edam_userId;
           req.session.edam_expires = results.edam_expires;
           req.session.edam_noteStoreUrl = results.edam_noteStoreUrl;
+          req.session.edam_userStoreUrl = results.edam_userStoreUrl;
           req.session.edam_webApiUrlPrefix = results.edam_webApiUrlPrefix;
           res.redirect('/');
         }

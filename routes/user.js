@@ -93,7 +93,26 @@
         }
       });
     });
-  };
+  }
+
+  exports.sendNewsletter = function() {
+    MongoClient.connect(dbURL, function(err, db) {
+      var usersCollection = db.collection('users');
+      var user,
+          nowUnixTime = new Date().getTime / 1000;
+      responseJSON = usersCollection.find().toArray(function(err, results) {
+        // res.send(JSON.stringify(results));
+        console.log('user: ' + JSON.stringify(results));
+        for(var i = 0; i < results.length; i++) {
+          user = results[i];
+          console.log('last_sent: ' + user.last_sent);
+          if(nowUnixTime - (user.last_sent + user.frequency) > 0) {
+            //then they need their email sent
+          }
+        }
+      });
+    });
+  }
 
   exports.userClosedApp = function(req, res) {
     var userId;
