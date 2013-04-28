@@ -12,6 +12,7 @@
     "less-middleware": "*",
     "oauth": "*",
     "evernote": "*",
-    "mongodb": "*"
+    "mongodb": "*",
+    "dynectmail":"*"
   }
 }
