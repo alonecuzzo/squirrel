@@ -1,31 +1,33 @@
 body {
         /*padding-top: 40px;
         padding-bottom: 40px;*/
-        background-color: #f5f5f5;
+        /*background-color: #72451d;*/
         height:100%;
+        
 }
 
 .form-signin {
-  max-width: 300px;
+  max-width: 500px;
   padding: 19px 29px 29px;
-  margin: 0 auto 20px 500px;
-  background-color:#fff ;
-  border: 1px solid #e5e5e5;
+  margin: 0 auto 20px 150px;
+  /*background-color:#fff ;*/
+  /*border: 1px solid #e5e5e5;
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);*/
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
 .form-signin-heading{
-  color:#999999;
+  color:#ddaa7e;
   font-weight: lighter;
-  font-size:28px;
+  font-size:24px;
+  line-height: 24px;
 }
 .form-signin input[type="text"],
 .form-signin input[type="password"] {
@@ -43,16 +45,18 @@ body {
   padding-top: 5px;
 
 }
+.form-signin p{
+  /*font-size: 14px;*/
+  font-weight: lighter;
+
+}
 #wrap {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
   margin: 0 auto -60px;
-}
-
-#main-box {
-  margin-top: 189px;
+  /*background-color: #72451d;*/
 }
 
  /* Set the fixed height of the footer here */
@@ -107,11 +111,13 @@ code {
   color: #999999;
 }
 .content{
-  background-color: #fff;
-  border: 1px solid #bfbfbf;
-  -webkit-box-shadow: 0 8px 6px -6px #888;
-     -moz-box-shadow: 0 8px 6px -6px #888;
-          box-shadow: 0 8px 6px -6px #888;
+  background-color: #72451d;
+  color:#ddaa7e;
+  border: 1px solid #2b1d0e;
+  -webkit-box-shadow: 0 8px 6px -6px #2b1d0e;
+     -moz-box-shadow: 0 8px 6px -6px #2b1d0e;
+          box-shadow: 0 8px 6px -6px #2b1d0e;
+  margin-top: 50px;
 }
 
 .some{
@@ -119,9 +125,17 @@ code {
   background-color: #f2f2f2;
 }
  .textsection{
-  margin: 60px 0px 10px 50px;
-  width: 400px;
-  float:left;   
+  margin: 60px 0px 10px 150px;
+  width: 600px;
+  float:left;  
+
+ }
+ .textsection h3{
+  font-size:60px;
+  color:#fff;
  }
 
+button.main{
+  margin:40px auto 20px 150px;
+}
 

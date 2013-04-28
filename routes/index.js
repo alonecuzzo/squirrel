@@ -139,6 +139,9 @@ exports.oauth_callback = function(req, res) {
       });
 };
 
+exports.something= function(req, res){
+  res.render('newsletter', {pageData: {name : ['name 1', 'name 2']}});
+}
 
 
 //Compiling jade template
